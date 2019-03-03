@@ -8,22 +8,24 @@ var burger = {
     });
   },
   // The variables cols and vals are arrays.
-  insertOne: function(cols, vals, cb) {
-    orm.insertOne("burgers", cols, vals, function(res) {
-      cb(res);
-    });
+  insertOne: function(name, cb) {
+    orm.insertOne("burgers", ["burger_name", "devour"],
+     [name, false], cb);
+    
   },
-  updateOne: function(objColVals, condition, cb) {
-    orm.updateOne("burgers", objColVals, condition, function(res) {
-      cb(res);
-    });
-  },
-  delete: function(condition, cb) {
-    orm.delete("burgers", condition, function(res) {
-      cb(res);
-    });
+  updateOne: function(id, cb) {
+    var condition = "id=" + id;
+    orm.updateOne("burgers", {
+      devour: true
+    }, condition, cb);
   }
 };
+//   delete: function(condition, cb) {
+//     orm.delete("burgers", condition, function(res) {
+//       cb(res);
+//     });
+//   }
+// };
 
 // Export the database functions for the controller (burgersController.js).
 module.exports = burger;
